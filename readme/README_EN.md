@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="https://github.com/Cyrus97/hdu-api" >
-  <span style="font-size: 36px">HDU-Library-Master</span>
-  </a>
+  <a href="https://github.com/Albresky/HDU-Library-Master"><img src="https://s2.loli.net/2023/05/22/3y6dc51NXmabzgj.png" alt="HDU-Library-Master"></a>
 </p>
 <p align="center">
 Daily Seats Reservation for HDU Library
