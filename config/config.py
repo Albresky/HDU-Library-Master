@@ -37,6 +37,7 @@ plans: []
 job:
   maxTrials:
   delay:
+  logDetails:
 """
     
     def createConfig(self):

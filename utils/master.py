@@ -47,6 +47,7 @@ class Master:
         env_planCode = os.environ.get("HLMPLANCODE")
         env_max_trials = os.environ.get("HLMMAXTRIALS")
         env_delay = os.environ.get("HLMDELAY")
+        env_logDetails = os.environ.get("HLMLOGDETAILS")
         if env_userid is not None and env_password is not None and env_planCode is not None:
             self.userInfo["login_name"] = env_userid
             self.userInfo["password"] = env_password
@@ -65,6 +66,10 @@ class Master:
             self.job["delay"] = 2   # default delay
         else:
             self.job["delay"] = int(env_delay)
+        if env_logDetails == 'true':
+            self.job["logDetails"] = True
+        else:
+            self.job["logDetails"] = False
      
     def delConfigFile(self):
         self.configParser.delConfigFile()

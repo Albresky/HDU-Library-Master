@@ -24,7 +24,7 @@ Automatic daily seats reservation via `Github Actions`
 |Required| `HLMPLANCODE` | `1:1000:15:8:2` | Reservation task code, separated by English commas. For example, `code1,code2,code3, ...`  See `Data Field` for details |
 |Optional| `HLMMAXTRIALS`| `10` | The maximum number of trials, default value is `10` times |
 |Optional| `HLMDELAY`    | `2` | Delay in each query, default value is `2` seconds |
-
+|Optional| `HLMLOGDETAILS` | `false` | whether to output task details in the log of workflows, default value is `false`, you can set it to `true` to display task details |
 
 ### **[Optional]** Modify trigger time
  - Modify `cron` expression in `.github/workflows/workflow.yaml` to set the trigger time

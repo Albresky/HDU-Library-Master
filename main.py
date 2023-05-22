@@ -5,7 +5,7 @@ from time import sleep
 
 def getInfo(trial,plan,resp):
     info=plan['seatsInfo'][0]
-    print(f"[try={trial}] MSG={resp['MESSAGE']} | {info['roomName']},{info['floorName']},{info['seatNum']}座,{plan['beginTime'].strftime('%Y-%m-%d %H:%M')}")
+    print(f"[try={trial}] MSG={resp['MESSAGE']} | {info['roomName']},{info['floorName']},{info['seatNum']}座,{plan['beginTime'].strftime('%Y-%m-%d %H:%M')},{plan['duration']}小时")
 
 def run():
     api = UserInterface()
@@ -24,7 +24,8 @@ def run():
             tryTimes=0
             while tryTimes<maxTrials and not isSuccess:
                 res=master.run(plan)
-                getInfo(tryTimes+1,plan,res)
+                if api.master.job["logDetails"]:
+                    getInfo(tryTimes+1,plan,res)
                 if res['DATA']['result'] != 'fail':
                     isSuccess=True
                 else:

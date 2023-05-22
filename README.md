@@ -26,6 +26,7 @@ Daily Seats Reservation for HDU Library
 |必填| `HLMPLANCODE` | `1:1000:15:8:2` | 订座任务代码，以英文逗号分隔。如 `code1,code2,code3,...`，详见`数据字段格式说明` |
 |可选| `HLMMAXTRIALS`| `10` | 最大尝试次数，默认为 `10` 次 |
 |可选| `HLMDELAY`    | `2` | 请求延迟时间，默认为 `2` 秒 |
+|可选| `HLMLOGDETAILS` | `false` | 是否在workflows 的日志中输出任务细节，默认为 `false`，可以设置为 `true` 以显示任务细节 |
 
 
 ### 3、**[可选]** 自定义触发时间
