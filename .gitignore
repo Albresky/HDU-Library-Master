@@ -1,0 +1,5 @@
+__pycache__/*
+.vscode/*
+config/__pycache__/*
+config/config.yaml
+*.pyc

@@ -1,0 +1,39 @@
+name : HDU-Library-Master
+on:
+  push:
+    branches:
+    - main
+    - master
+  pull_request:
+    branches:
+    - main
+    - master
+  schedule:
+    - cron: '0 12 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+      - name: Install python dependencies
+        run: pip install -r requirements.txt
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Run main.py
+        env:
+          HLMUSERID: ${{ secrets.HLMUSERID }}
+          HLMPASSWORD: ${{ secrets.HLMPASSWORD }}
+          HLMPLANCODE: ${{ secrets.HLMPLANCODE }}
+          HLMMAXTRIALS: ${{ secrets.HLMMAXTRIALS }}
+          HLMDELAY: ${{ secrets.HLMDELAY }}
+        run:  python main.py
+        
