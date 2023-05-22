@@ -9,6 +9,7 @@ from time import sleep
 sys.path.append(os.getcwd())
 from config.config import ConfigParser
 
+
 class Master:
     def __init__(self):
         # room map
@@ -56,11 +57,11 @@ class Master:
             exit(0)
             
         # default job config
-        if env_max_trials is None:
+        if env_max_trials is None or env_max_trials == '':
             self.job["maxTrials"] = 10  # default max trials
         else:
             self.job["maxTrials"] = int(env_max_trials)
-        if env_delay is None or int(env_delay) < 2:
+        if env_delay is None or env_delay == '' or int(env_delay) < 2:
             self.job["delay"] = 2   # default delay
         else:
             self.job["delay"] = int(env_delay)
