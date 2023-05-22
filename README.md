@@ -22,7 +22,7 @@ Daily Seats Reservation for HDU Library
 || Name | Secrets（示例） | 描述|
 |--|--|--|--|
 |必填| `HLMUSERID`   | `20239999` | 学号 |
-|必填| `HLMPASSWORD` | `hDu123321` | 图书馆系统登录密码，**非数字杭|可选电登录密码** |
+|必填| `HLMPASSWORD` | `hDu123321` | 图书馆系统登录密码，**非数字杭电登录密码** |
 |必填| `HLMPLANCODE` | `1:1000:15:8:2` | 订座任务代码，以英文逗号分|可选隔。如 `code1,code2,code3,...`，详见`数据字段格式说明` |
 |可选| `HLMMAXTRIALS`| `10` | 最大尝试次数，默认为 `10` 次 |
 |可选| `HLMDELAY`    | `2` | 请求延迟时间，默认为 `2` 秒 |
