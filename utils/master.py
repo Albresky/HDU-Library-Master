@@ -1,13 +1,14 @@
 import os
 import sys
 import requests
-import datetime as dt
 
 from urllib.parse import unquote
 from time import sleep
+from utils.time import getNowTime,getNowTimeWithOffset
 
 sys.path.append(os.getcwd())
 from config.config import ConfigParser
+
 
 
 class Master:
@@ -103,14 +104,15 @@ class Master:
         return rooms
     
     def __querySeats(self):
-        #  查询每个房间的作为信息
-        time = dt.datetime.now()
-        if time.hour >= 22:
-            time = time + dt.timedelta(days=1)
-            time = time.replace(hour=11, minute=0, second=0)
+        # 查询每个房间的座位信息（并非目标任务时间段的座位信息）
+        _time = getNowTime()
+        if _time.hour >= 22:
+            _time = getNowTimeWithOffset(days=1,hours=0).replace(hour=8, minute=0)
+        elif _time.hour < 7:
+            _time = getNowTimeWithOffset(days=0,hours=0).replace(hour=8, minute=0)
         for room in self.rooms.keys():
             data = {
-                "beginTime": time.timestamp(),
+                "beginTime": _time.timestamp(),
                 "duration": 3600,
                 "num": 1,
                 "space_category[category_id]": self.rooms[room]["space_category"]["category_id"],

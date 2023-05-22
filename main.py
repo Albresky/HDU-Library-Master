@@ -1,13 +1,7 @@
 from utils.master import Master
+from utils.time import getNowTimeWithOffset
 from UserInterface import UserInterface
 from time import sleep
-
-import datetime as dt
-
-def getTime(hour):
-    str_timeToday = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    timeToday=dt.datetime.strptime(str_timeToday, "%Y-%m-%d %H:%M")
-    return timeToday.replace(hour=hour, minute=0)
 
 def getInfo(trial,plan,resp):
     info=plan['seatsInfo'][0]
@@ -22,7 +16,8 @@ def run():
             planCode=master.planCode[planIndex]
             planIndex+=1
             beginTime = plan["beginTime"]
-            plan["beginTime"] = getTime(beginTime.hour)+dt.timedelta(days=2)
+            # plan["beginTime"] = getTime(beginTime.hour)+dt.timedelta(days=2)
+            plan["beginTime"] = getNowTimeWithOffset(days=2,hours=0).replace(hour=beginTime.hour, minute=0)
             maxTrials = master.job["maxTrials"]
             delay = master.job["delay"]
             isSuccess=False
