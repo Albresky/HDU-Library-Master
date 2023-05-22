@@ -33,7 +33,6 @@ class Master:
         self.urls = self.cfg['urls']
         self.planCode = self.cfg["planCode"]
         self.data = self.cfg["data"]
-        self.settings = self.cfg["settings"]
         self.userInfo = self.cfg["user_info"]
         self.plans = self.cfg["plans"]
         self.job= self.cfg["job"]
@@ -100,7 +99,7 @@ class Master:
         rooms = {x["name"]: unquote(x["link"]["url"]).split('?')[1] for x in rawRooms}
         for room in rooms.keys():
             rooms[room] = self.session.get(url=self.urls["query_seats"] + "?" + rooms[room]).json()["data"]
-            sleep(1.5) # minimal interval is unknown
+            sleep(self.job["delay"]) # minimal interval is unknown
         return rooms
     
     def __querySeats(self):
@@ -121,7 +120,7 @@ class Master:
             self.rooms[room]["floors"] = {x["roomName"]:x for x in resp["allContent"]["children"][2]["children"]["children"]}
             for floor in self.rooms[room]["floors"].keys():
                 self.rooms[room]["floors"][floor]["seats"] = self.rooms[room]["floors"][floor]["seatMap"]["POIs"]
-            sleep(2)
+            sleep(self.job["delay"])
     def updateRooms(self):
         self.rooms = self.__queryRooms()
         self.__querySeats()
