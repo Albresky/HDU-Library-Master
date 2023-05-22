@@ -11,7 +11,13 @@ from config.config import ConfigParser
 
 class Master:
     def __init__(self):
-        pass
+        # room map
+        self.roomMap = {
+            '1':'自习室',
+            '2':'教师休息室',
+            '3':'阅览室',
+            '4':'讨论室'
+        }
     
     def init(self, configFile):
         self.loadConfig(configFile)
@@ -119,6 +125,11 @@ class Master:
         self.rooms = self.__queryRooms()
         self.__querySeats()
         return list(self.rooms.keys())
+    
+    def getRoomNameByIndex(self,index):
+        if index<0 or index>=len(self.rooms):
+            return None
+        return self.roomMap[str(index)]
     
     def getFloorNamesByRoom(self, roomName):
         floors = self.rooms[roomName]["floors"]

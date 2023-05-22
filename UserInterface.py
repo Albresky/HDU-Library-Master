@@ -86,7 +86,7 @@ class UserInterface:
                 roomName = _plan[0] # roomType
                 if roomName < 1 or roomName > numRooms:
                     raise Exception("房间类型不合法")
-                roomName = list(self.master.rooms.keys())[roomName-1]
+                roomName = self.master.getRoomNameByIndex(roomName)
                 room = self.master.rooms[roomName]
                 floor = self.master.getFloorNamesByRoom(roomName)
                 if len(floor) == 0:
