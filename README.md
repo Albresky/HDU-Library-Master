@@ -19,16 +19,14 @@ Daily Seats Reservation for HDU Library
 
 - `Settings` - `[Security]Secrets and Variables` - `Actions` - `New repository secret`
 
-  - `HLMUSERID` 学号
-  - `HLMPASSWORD` 图书馆系统登录密码
-    - [注] `非数字杭电登录密码`
-  - `HLMPLANCODE` 订座任务代码，以英文逗号分隔
-    - 如 `code1,code2,code3,...`
-    - [注] 至少一个任务代码
-  - **[可选]** `HLMMAXTRIALS` 最大尝试次数
-    - 默认为 `2`
-  - **[可选]** `HLMDELAY` 超时时间，单位为秒
-    - 默认为 `10`
+|| Name | Secrets（示例） | 描述|
+|--|--|--|--|
+|必填| `HLMUSERID`   | `20239999` | 学号 |
+|必填| `HLMPASSWORD` | `hDu123321` | 图书馆系统登录密码，**非数字杭|可选电登录密码** |
+|必填| `HLMPLANCODE` | `1:1000:15:8:2` | 订座任务代码，以英文逗号分|可选隔。如 `code1,code2,code3,...`，详见`数据字段格式说明` |
+|可选| `HLMMAXTRIALS`| `10` | 最大尝试次数，默认为 `10` 次 |
+|可选| `HLMDELAY`    | `2` | 请求延迟时间，默认为 `2` 秒 |
+
 
 ### 3、**[可选]** 自定义触发时间
 

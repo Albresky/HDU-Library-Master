@@ -17,16 +17,14 @@ Automatic daily seats reservation via `Github Actions`
 
 - `Settings` - `[Security]Secrets and Variables` - `Actions` - `New repository secret`
 
-  - `HLMUSERID` Student ID
-  - `HLMPASSWORD` HDU Library System Password
-    - [PS] `differ from HDU-CAS Password`
-  - `HLMPLANCODE` Reservation Task Code, separated by English commas `,`
-    - e.g. `code1,code2,code3,...`
-    - [PS] You should set at least one task code
-  - **[Optional]** `HLMMAXTRIALS` Max trials
-    - Default value `2`
-  - **[Optional]** `HLMDELAY` Timeout of Single Trial (in seconds)
-    - Default value `10`
+|| Name | Secrets (Example) | Description |
+|--|--|--|--|
+|Required| `HLMUSERID`   | `20239999` | Student ID |
+|Required| `HLMPASSWORD` | `hDu123321` | Login password of library's system, **differ from the password of HDU-CAS** |
+|Required| `HLMPLANCODE` | `1:1000:15:8:2` | Reservation task code, separated by English commas. For example, `code1,code2,code3, ...`  See `Data Field` for details |
+|Optional| `HLMMAXTRIALS`| `10` | The maximum number of trials, default value is `10` times |
+|Optional| `HLMDELAY`    | `2` | Delay in each query, default value is `2` seconds |
+
 
 ### **[Optional]** Modify trigger time
  - Modify `cron` expression in `.github/workflows/workflow.yaml` to set the trigger time
