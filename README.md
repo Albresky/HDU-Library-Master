@@ -23,17 +23,17 @@ Daily Seats Reservation for HDU Library
 |--|--|--|--|
 |必填| `HLMUSERID`   | `20239999` | 学号 |
 |必填| `HLMPASSWORD` | `hDu123321` | 图书馆系统登录密码，**非数字杭电登录密码** |
-|必填| `HLMPLANCODE` | `1:1000:15:8:2` | 订座任务代码，以英文逗号分隔。如 `code1,code2,code3,...`，详见`数据字段格式说明` |
+|必填| `HLMPLANCODE` | `1:1000:15:8:2` | 订座任务代码，以英文逗号分隔。如 `code1,code2,...` |
 |可选| `HLMMAXTRIALS`| `10` | 最大尝试次数，默认为 `10` 次 |
 |可选| `HLMDELAY`    | `2` | 请求延迟时间，默认为 `2` 秒 |
-|可选| `HLMLOGDETAILS` | `false` | 是否在workflows 的日志中输出任务细节，默认为 `false`，可以设置为 `true` 以显示任务细节 |
+|可选| `HLMLOGDETAILS` | `false` | 是否在workflows 的日志中输出任务细节，默认为 `false` |
+|可选| `HLMEXECUTETIME` | `19:20:20` | 开始执行任务时间，默认为 `20:00:00` |
 
 
-### 3、**[可选]** 自定义触发时间
-
- - 修改 `.github/workflows/workflow.yaml`中的 `cron` 表达式，以控制任务触发时间
- - [注] `cron` 表达式中的时间为 `UTC` 时间，需根据时区调整（东八区时间减8）
-   - 如果任务触发时间为 `20:00`（**系统预约隔天座位的开放时间**），则 `cron` 表达式为 `0 12 * * *`
+### 3、[注] 触发时间说明（**勿修改**）
+ - 当前的 workflows 仅通过 `schedule` 触发任务
+ - `.github/workflows/workflow.yaml` 中的 `cron` 表达式，用以控制任务触发时间
+ - `cron` 表达式时间为 `UTC-0` 时区
 
 
 ## 二、数据字段格式说明
@@ -91,7 +91,7 @@ Daily Seats Reservation for HDU Library
 ## 三、`Secrets` 示例
 
  - `HLMUSERID`
-   - `12345678`
+   - `20239999`
  - `HLMPASSWORD`
    - `hDu123123`
  - `HLMPLANCODE`
