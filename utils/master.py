@@ -4,6 +4,7 @@ import requests
 
 from urllib.parse import unquote
 from time import sleep
+from datetime import datetime as dt
 from utils.time import getNowTime,getNowTimeWithOffset
 
 sys.path.append(os.getcwd())
@@ -48,6 +49,7 @@ class Master:
         env_max_trials = os.environ.get("HLMMAXTRIALS")
         env_delay = os.environ.get("HLMDELAY")
         env_logDetails = os.environ.get("HLMLOGDETAILS")
+        env_executeTime = os.environ.get("HLMEXECUTETIME")
         if env_userid is not None and env_password is not None and env_planCode is not None:
             self.userInfo["login_name"] = env_userid
             self.userInfo["password"] = env_password
@@ -70,6 +72,21 @@ class Master:
             self.job["logDetails"] = True
         else:
             self.job["logDetails"] = False
+        if env_executeTime is None or env_executeTime == '':
+            self.job["executeTime"] = "20:00:00"
+        else:
+            try:
+                exeTime=dt.strptime(env_executeTime,"%H:%M:%S")
+                if exeTime.hour==20 and exeTime.minute==0:
+                    pass
+                elif exeTime.hour>=19 and exeTime.hour<20:
+                    self.job["executeTime"] = env_executeTime
+                else:
+                    raise Exception("任务时间应控制在19:00:00-20:00:00之间")
+            except Exception as e:
+                print(f"环境变量[HLMEXECUTETIME]格式错误，应为HH:MM:SS且不应不晚于19:00:00\n将使用默认值'20:00:00'\n[Exception]{e}")
+                self.job["executeTime"] = "20:00:00"
+            
      
     def delConfigFile(self):
         self.configParser.delConfigFile()

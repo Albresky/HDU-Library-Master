@@ -2,6 +2,8 @@ from utils.master import Master
 from utils.time import getNowTime, getNowTimeWithOffset
 from UserInterface import UserInterface
 from time import sleep
+from datetime import datetime as dt
+
 
 def getInfo(trial,plan,resp):
     info=plan['seatsInfo'][0]
@@ -14,12 +16,20 @@ def run():
         planIndex = 0
         for plan in master.plans:
             planCode=master.planCode[planIndex]
-            planIndex+=1
             beginTime = plan["beginTime"]
-            # plan["beginTime"] = getTime(beginTime.hour)+dt.timedelta(days=2)
             plan["beginTime"] = getNowTimeWithOffset(days=2,hours=0).replace(hour=beginTime.hour, minute=0)
             maxTrials = master.job["maxTrials"]
             delay = master.job["delay"]
+            
+            executeTime_details = getNowTime().strptime(master.job["executeTime"], "%H:%M:%S")
+            executeTime = getNowTime().replace(hour=executeTime_details.hour, minute=executeTime_details.minute, second=executeTime_details.second)
+            nowTime=getNowTime(precision='second')
+            if nowTime < executeTime:
+                time_wait=(executeTime-nowTime).seconds
+                print(f"[{getNowTime()}]未到任务执行时间，还差[{time_wait}]s，等待中...")
+                sleep(time_wait)
+                
+            print(f"[{getNowTime()}][plan[{planIndex}]={planCode}] 开始预约...")
             isSuccess=False
             tryTimes=0
             while tryTimes<maxTrials and not isSuccess:
@@ -32,9 +42,10 @@ def run():
                     sleep(delay)
                 tryTimes+=1
             if isSuccess:
-                print(f"[{getNowTime()}][plan={planCode}] 预约成功")
+                print(f"[{getNowTime()}][plan[{planIndex}]={planCode}] 预约成功")
             else:   
-                print(f"[{getNowTime()}][plan={planCode}] 预约失败")
+                print(f"[{getNowTime()}]plan[{planIndex}]={planCode}] 预约失败")
+            planIndex+=1
             
              
 if __name__ == "__main__":

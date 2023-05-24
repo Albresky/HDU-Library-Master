@@ -1,15 +1,7 @@
 name : HDU-Library-Master
 on:
-  push:
-    branches:
-    - main
-    - master
-  pull_request:
-    branches:
-    - main
-    - master
   schedule:
-    - cron: '0 12 * * *'
+    - cron: '50 11 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,5 +27,6 @@ jobs:
           HLMPLANCODE: ${{ secrets.HLMPLANCODE }}
           HLMMAXTRIALS: ${{ secrets.HLMMAXTRIALS }}
           HLMDELAY: ${{ secrets.HLMDELAY }}
+          HLMEXECUTETIME: ${{ secrets.HLMEXECUTETIME }}
         run:  python main.py
         
