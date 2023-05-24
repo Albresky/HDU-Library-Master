@@ -38,6 +38,7 @@ job:
   maxTrials:
   delay:
   logDetails:
+  executeTime:
 """
     
     def createConfig(self):
