@@ -25,11 +25,13 @@ Automatic daily seats reservation via `Github Actions`
 |Optional| `HLMMAXTRIALS`| `10` | The maximum number of trials, default value is `10` times |
 |Optional| `HLMDELAY`    | `2` | Delay in each query, default value is `2` seconds |
 |Optional| `HLMLOGDETAILS` | `false` | whether to output task details in the log of workflows, default value is `false`, you can set it to `true` to display task details |
+|Optional| `HLMEXECUTETIME` | `19:20:20` | The time to start executing task, default value is `20:00:00` |
 
-### **[Optional]** Modify trigger time
- - Modify `cron` expression in `.github/workflows/workflow.yaml` to set the trigger time
- - [PS] The time in `cron` expression is `UTC` time, you should offset it according to your local time zone (`UTC-8` for China)
-   - [e.g.] If the trigger time is set to `20:00` (**the earliest time for next day's seats reservation in hdu-library's server**), then the `cron` expression should be set as `0 12 * * *`
+### [Note] When to Trigger? (**Do NOT MODIFY**)
+
+ - The current workflow job is triggerred through `schedule` only
+ - The `cron` expression in `.github/workflows/workflow.yaml` is used to control the trigger time of the task
+ - The timezone of `cron` expression is `UTC-0`
 
 
 ## Data Field
@@ -86,7 +88,7 @@ Automatic daily seats reservation via `Github Actions`
 
  - `Repo Secrets`
     - `HLMUSERID`
-      - `12345678`
+      - `20239999`
     - `HLMPASSWORD`
       - `hDu123123`
     - `HLMPLANCODE`
