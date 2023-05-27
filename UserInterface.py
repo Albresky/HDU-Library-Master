@@ -4,7 +4,7 @@ from time import sleep
 from datetime import datetime
 from utils.master import Master
 from threading import Thread
-
+from utils.time import getNowTime
 
 class UserInterface:
     def __init__(self):
@@ -94,7 +94,7 @@ class UserInterface:
                 floorName = self.master.getFloorNameByRoomAndId(roomName, _plan[1]) # floorId2floorName
                 if floorName is None:
                     raise Exception(f"{roomName}中楼层{_plan[1]}不存在")
-                time=datetime.now().replace(hour=_plan[3],minute=0,second=0) # hour
+                time = getNowTime().replace(hour=_plan[3],minute=0,second=0) # hour
                 if time.hour < room["range"]["minBeginTime"] or time.hour > room["range"]["maxEndTime"]:
                     raise Exception("开始时间不在房间开放时间内")
                 leftTime = room["range"]["maxEndTime"] - time.hour
