@@ -24,12 +24,31 @@ def getNowTime(toStr=False, precision='second'):
     utc_now = datetime.utcnow()
     timezoneCN = pytz.timezone(timezone_name)
     local_now = utc_now.replace(tzinfo=pytz.timezone('UTC')).astimezone(timezoneCN)
-    if toStr:
-        if precisions.get(precision):
-            local_now = local_now.strftime("%Y-%m-%d %H:%M:%S")
+    
+    try:
+        if precision == 'second':
+            local_now = local_now.replace(microsecond=0)
+        elif precision == 'minute':
+            local_now = local_now.replace(second=0, microsecond=0)
+        elif precision == 'hour':
+            local_now = local_now.replace(minute=0, second=0, microsecond=0)
+        elif precision == 'day':
+            local_now = local_now.replace(hour=0, minute=0, second=0, microsecond=0)
         else:
+            # Invalid precision, use default precision 'second'
+            local_now = local_now.replace(microsecond=0)
             raise Exception(f"precision '{precision}' is not defined")
-    return local_now
+
+        if toStr:
+                _precision=precisions[precision]
+                if _precision:
+                    local_now = local_now.strftime(_precision)
+                else:
+                    raise Exception(f"precision '{precision}' is not defined")
+    except Exception as e:
+                print(f"getNowTime: {e}, use default precision 'second'")
+    finally:
+        return local_now
 
 
 def getNowTimeWithOffset(days=0,hours=0):
@@ -39,9 +58,7 @@ def getNowTimeWithOffset(days=0,hours=0):
     :param hours: offset hours, default: 0
     :return: now time (datetime) with offset
     '''
-    timeNow = getNowTime()
-    timeNow = timeNow.strftime("%Y-%m-%d %H:%M")
-    timeNow = datetime.strptime(timeNow, "%Y-%m-%d %H:%M")
+    timeNow = getNowTime(precision='minute')
     if days != 0:
         timeNow += timedelta(days=days)
     if hours != 0:
