@@ -3,3 +3,5 @@ __pycache__/*
 config/__pycache__/*
 config/config.yaml
 *.pyc
+/venv/
+.idea/*
