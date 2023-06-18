@@ -47,16 +47,19 @@ def run():
                 res = master.run(plan)
                 if api.master.job["logDetails"]:
                     getInfo(tryTimes + 1, plan, res)
-                if res["DATA"]["result"] != "fail":
-                    isSuccess = True
-                elif str(res["MESSAGE"]).startswith(MSG_TIME_OUT_OF_RANGE):
-                    sleep(delay)
-                elif str(res["MESSAGE"]).startswith(MSG_DUPLICATE):
-                    isSuccess = False
-                    break
-                elif str(res["MESSAGE"]).startswith(MSG_SEAT_UNAVAILABLE):
-                    isSuccess = False
-                    break
+                try:
+                    if res["DATA"]["result"] != "fail":
+                        isSuccess = True
+                    elif str(res["MESSAGE"]).startswith(MSG_TIME_OUT_OF_RANGE):
+                        sleep(delay)
+                    elif str(res["MESSAGE"]).startswith(MSG_DUPLICATE):
+                        isSuccess = False
+                        break
+                    elif str(res["MESSAGE"]).startswith(MSG_SEAT_UNAVAILABLE):
+                        isSuccess = False
+                        break
+                except Exception as e:
+                    print(f"[{getNowTime()}]plan[{planIndex}]={planCode}] 预约失败，原因：{e}")
                 tryTimes += 1
             if isSuccess:
                 print(f"[{getNowTime()}][plan[{planIndex}]={planCode}] 预约成功")
