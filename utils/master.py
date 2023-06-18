@@ -73,7 +73,7 @@ class Master:
         else:
             self.job["logDetails"] = False
         if env_executeTime is None or env_executeTime == '':
-            self.job["executeTime"] = "20:00:00"
+            self.job["executeTime"] = "20:00:01"
         else:
             try:
                 exeTime=dt.strptime(env_executeTime,"%H:%M:%S")
