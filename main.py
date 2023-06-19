@@ -26,19 +26,36 @@ def run():
             maxTrials = master.job["maxTrials"]
             delay = master.job["delay"]
 
-            executeTime_details = getNowTime().strptime(
-                master.job["executeTime"], "%H:%M:%S"
-            )
-            executeTime = getNowTime().replace(
-                hour=executeTime_details.hour,
-                minute=executeTime_details.minute,
-                second=executeTime_details.second,
-            )
             nowTime = getNowTime(precision="second")
-            if nowTime < executeTime:
-                time_wait = (executeTime - nowTime).seconds
-                print(f"[{getNowTime()}]未到任务执行时间，还差[{time_wait}]s，等待中...")
+            preExeTime_details = getNowTime().strptime(
+                master.job["preExeTime"], "%H:%M:%S"
+            )
+            preExeTime =getNowTimeWithOffset(days=1).replace(
+                hour=preExeTime_details.hour,
+                minute=preExeTime_details.minute,
+                second=preExeTime_details.second,
+            )
+            
+            time_wait = (preExeTime - nowTime).seconds
+            if time_wait < 7200:
+                # checkpoint A: executeTime seats reservation at 00:00:01
+                print(f"[{getNowTime()}][checkpoint A]未到任务执行时间，还差[{time_wait}]s，等待中...")
                 sleep(time_wait)
+            else:
+                # checkpoint B: executeTime seats reservation at 20:00:01
+                executeTime_details = getNowTime().strptime(
+                    master.job["executeTime"], "%H:%M:%S"
+                )
+                executeTime = getNowTime().replace(
+                    hour=executeTime_details.hour,
+                    minute=executeTime_details.minute,
+                    second=executeTime_details.second,
+                )
+
+                if nowTime < executeTime:
+                    time_wait = (executeTime - nowTime).seconds
+                    print(f"[{getNowTime()}][checkpoint B]未到任务执行时间，还差[{time_wait}]s，等待中...")
+                    sleep(time_wait)
 
             print(f"[{getNowTime()}][plan[{planIndex}]={planCode}] 开始预约...")
             isSuccess = False

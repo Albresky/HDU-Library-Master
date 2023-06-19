@@ -39,6 +39,7 @@ job:
   delay:
   logDetails:
   executeTime:
+  preExeTime:
 """
     
     def createConfig(self):

@@ -50,6 +50,8 @@ class Master:
         env_delay = os.environ.get("HLMDELAY")
         env_logDetails = os.environ.get("HLMLOGDETAILS")
         env_executeTime = os.environ.get("HLMEXECUTETIME")
+        env_preExeTime = os.environ.get("HLMPREEXETIME")
+        
         if env_userid is not None and env_password is not None and env_planCode is not None:
             self.userInfo["login_name"] = env_userid
             self.userInfo["password"] = env_password
@@ -72,6 +74,8 @@ class Master:
             self.job["logDetails"] = True
         else:
             self.job["logDetails"] = False
+        if env_preExeTime is None or env_preExeTime == '':
+            self.job["preExeTime"] = "00:00:01"
         if env_executeTime is None or env_executeTime == '':
             self.job["executeTime"] = "20:00:01"
         else:
