@@ -19,6 +19,10 @@ def run():
         planIndex = 0
         for plan in master.plans:
             planCode = master.planCode[planIndex]
+            if not api.master.job["logDetails"]:
+                _planCode = '****'
+            else:
+                _planCode = planCode
             beginTime = plan["beginTime"]
             plan["beginTime"] = getNowTimeWithOffset(days=2, hours=0).replace(
                 hour=beginTime.hour, minute=0
@@ -57,9 +61,10 @@ def run():
                     print(f"[{getNowTime()}][checkpoint B]未到任务执行时间，还差[{time_wait}]s，等待中...")
                     sleep(time_wait)
 
-            print(f"[{getNowTime()}][plan[{planIndex}]={planCode}] 开始预约...")
+            print(f"[{getNowTime()}][plan[{planIndex}]={_planCode}] 开始预约...")
             isSuccess = False
             tryTimes = 0
+            
             while tryTimes < maxTrials and not isSuccess:
                 res = master.run(plan)
                 if api.master.job["logDetails"]:
@@ -76,12 +81,13 @@ def run():
                         isSuccess = False
                         break
                 except Exception as e:
-                    print(f"[{getNowTime()}]plan[{planIndex}]={planCode}] 预约失败，原因：{e}")
-                tryTimes += 1
+                    print(f"[{getNowTime()}]plan[{planIndex}]={_planCode}] 预约失败，原因：{e}")
+                finally:
+                    tryTimes += 1
             if isSuccess:
-                print(f"[{getNowTime()}][plan[{planIndex}]={planCode}] 预约成功")
+                print(f"[{getNowTime()}][plan[{planIndex}]={_planCode}] 预约成功")
             else:
-                print(f"[{getNowTime()}]plan[{planIndex}]={planCode}] 预约失败")
+                print(f"[{getNowTime()}]plan[{planIndex}]={_planCode}] 预约失败")
             planIndex += 1
         
 
