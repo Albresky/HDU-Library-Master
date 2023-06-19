@@ -2,7 +2,7 @@
   <a href="https://github.com/Albresky/HDU-Library-Master"><img src="https://s2.loli.net/2023/05/22/3y6dc51NXmabzgj.png" alt="HDU-Library-Master"></a>
 </p>
 <p align="center">
-Daily Seats Reservation for HDU Library
+杭电图书馆每日定时[订座/抢座]
 </p>
 
 **中文** | [English](https://github.com/Albresky/HDU-Library-Master/blob/main/readme/README_EN.md)
@@ -11,13 +11,23 @@ Daily Seats Reservation for HDU Library
 
 ---
 
+## 〇、Feature
+
+:heavy_check_mark: 一分钟部署
+
+:x: 配置环境
+
+:x: 私有服务器
+
+
 ## 一、使用方法
 
 ### 1、`Fork` 本仓库
 
 ### 2、添加 `Secrets`
 
-- `Settings` - `[Security]Secrets and Variables` - `Actions` - `New repository secret`
+ - 在你 Fork 的仓库中，进行以下步骤的配置：
+   - `Settings` - `[Security]Secrets and Variables` - `Actions` - `New repository secret`
 
 || Name | Secrets（示例） | 描述|
 |--|--|--|--|
@@ -27,7 +37,8 @@ Daily Seats Reservation for HDU Library
 |可选| `HLMMAXTRIALS`| `10` | 最大尝试次数，默认为 `10` 次 |
 |可选| `HLMDELAY`    | `2` | 请求延迟时间，默认为 `2` 秒 |
 |可选| `HLMLOGDETAILS` | `false` | 是否在workflows 的日志中输出任务细节，默认为 `false` |
-|可选| `HLMEXECUTETIME` | `19:20:20` | 开始执行任务时间，默认为 `20:00:00` |
+|可选| `HLMEXECUTETIME` | `19:20:20` | 开始执行任务时间点，默认为 `20:00:01` |
+|可选| `HLMPREEXETIME` | `00:00:01` | 提前执行任务时间点，默认为 `00:00:01` |
 
 
 ### 3、[注] 触发时间说明（**勿修改**）
