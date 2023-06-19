@@ -27,6 +27,8 @@ jobs:
           HLMPLANCODE: ${{ secrets.HLMPLANCODE }}
           HLMMAXTRIALS: ${{ secrets.HLMMAXTRIALS }}
           HLMDELAY: ${{ secrets.HLMDELAY }}
+          HLMLOGDETAILS: ${{ secrets.HLMLOGDETAILS }}
           HLMEXECUTETIME: ${{ secrets.HLMEXECUTETIME }}
+          HLMPREEXETIME: ${{ secrets.HLMPREEXETIME }}
         run:  python main.py
         
