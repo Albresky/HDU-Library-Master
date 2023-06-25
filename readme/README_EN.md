@@ -31,7 +31,7 @@ Automatic daily seats reservation via `Github Actions`
 |Optional| `HLMDELAY`    | `2` | Delay in each query, default value is `2` seconds |
 |Optional| `HLMLOGDETAILS` | `false` | whether to output task details in the log of workflows, default value is `false`, you can set it to `true` to display task details |
 |Optional| `HLMEXECUTETIME` | `19:20:20` | The time to start executing task, default value is `20:00:00` |
-|Optional| `HLMPREEXETIME` | `00:00:01` | The advanced time to execute task, default value is `00:00:01` |
+|Optional| `HLMPREEXETIME` | `00:00:00` | The advanced time to execute task, default value is `00:00:00` |
 
 ### [Note] When to Trigger? (**Do NOT MODIFY**)
 
