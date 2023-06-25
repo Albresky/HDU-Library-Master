@@ -1,7 +1,7 @@
 name : HDU-Library-Master
 on:
   schedule:
-    - cron: '00 11,15 * * *'
+    - cron: '00 11,14 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
