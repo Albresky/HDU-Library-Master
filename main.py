@@ -19,7 +19,8 @@ def run():
         planIndex = 0
         for plan in master.plans:
             planCode = master.planCode[planIndex]
-            if not api.master.job["logDetails"]:
+            checkPoint = master.job["checkPoint"]
+            if not master.job["logDetails"]:
                 _planCode = '****'
             else:
                 _planCode = planCode
@@ -44,7 +45,12 @@ def run():
             if time_wait < 7200:
                 # checkpoint A: executeTime seats reservation at 00:00:01
                 print(f"[{getNowTime()}][checkpoint A]未到任务执行时间，还差[{time_wait}]s，等待中...")
-                sleep(time_wait)
+                if checkPoint is True:
+                    sleep(time_wait)
+                else:
+                    master.job['checkPoint'] = True
+                    master.saveConfig()
+                    return
             else:
                 # checkpoint B: executeTime seats reservation at 20:00:01
                 executeTime_details = getNowTime().strptime(
@@ -59,7 +65,12 @@ def run():
                 if nowTime < executeTime:
                     time_wait = (executeTime - nowTime).seconds
                     print(f"[{getNowTime()}][checkpoint B]未到任务执行时间，还差[{time_wait}]s，等待中...")
-                    sleep(time_wait)
+                    if checkPoint is True:
+                        sleep(time_wait)
+                    else:
+                        master.job['checkPoint'] = True
+                        master.saveConfig()
+                        return
 
             print(f"[{getNowTime()}][plan[{planIndex}]={_planCode}] 开始预约...")
             isSuccess = False

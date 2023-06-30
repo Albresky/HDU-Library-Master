@@ -40,6 +40,7 @@ job:
   logDetails:
   executeTime:
   preExeTime:
+  checkPoint:
 """
     
     def createConfig(self):
