@@ -2,6 +2,7 @@ name : HDU-Library-Master
 on:
   schedule:
     - cron: '00 11,14 * * *'
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
