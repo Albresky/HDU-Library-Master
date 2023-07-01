@@ -21,6 +21,7 @@ class Master:
             '3':'阅览室',
             '4':'讨论室'
         }
+        self.rooms = None
     
     def init(self, configFile):
         self.loadConfig(configFile)
