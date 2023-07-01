@@ -20,14 +20,12 @@ def run():
         for plan in master.plans:
             planCode = master.planCode[planIndex]
             checkPoint = master.job["checkPoint"]
+            
             if not master.job["logDetails"]:
                 _planCode = '****'
             else:
                 _planCode = planCode
-            beginTime = plan["beginTime"]
-            plan["beginTime"] = getNowTimeWithOffset(days=2, hours=0).replace(
-                hour=beginTime.hour, minute=0
-            )
+
             maxTrials = master.job["maxTrials"]
             delay = master.job["delay"]
 
@@ -73,6 +71,9 @@ def run():
                         return
 
             print(f"[{getNowTime()}][plan[{planIndex}]={_planCode}] 开始预约...")
+            plan["beginTime"] = getNowTimeWithOffset(days=2, hours=0).replace(
+                hour=plan["beginTime"].hour, minute=0
+            )
             isSuccess = False
             tryTimes = 0
             
