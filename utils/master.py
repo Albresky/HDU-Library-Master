@@ -4,6 +4,7 @@ import requests
 
 from urllib.parse import unquote
 from time import sleep
+from math import floor as fl
 from datetime import datetime as dt
 from utils.time import getNowTime,getNowTimeWithOffset
 
@@ -197,6 +198,8 @@ class Master:
         data = {}
         data["beginTime"] = int(plan["beginTime"].timestamp())
         data["duration"] = plan["duration"]*3600
+        data["is_recommend"] = 0
+        data["api_time"]= fl(getNowTimeWithOffset(days=0, hours=0).timestamp()));
         for i in range(len(plan["seatsInfo"])):
             data[f"seats[{i}]"] = plan["seatsInfo"][i]["seatId"]
             data[f"seatBookers[{i}]"] = plan["seatBookers"][i]
