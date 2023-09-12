@@ -23,7 +23,7 @@ session:
   trust_env: false
   verify: false
 urls:
-  book_seat: https://hdu.huitu.zhishulib.com/Seat/Index/bookSeats
+  book_seat: https://hdu.huitu.zhishulib.com/Seat/Index/bookSeats?LAB_JSON=1
   login: https://hdu.huitu.zhishulib.com/User/Index/login
   query_seats: https://hdu.huitu.zhishulib.com/Seat/Index/searchSeats
   query_rooms: https://hdu.huitu.zhishulib.com/Space/Category/list
