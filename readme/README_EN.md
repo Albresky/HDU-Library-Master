@@ -5,6 +5,13 @@
 Daily Seats Reservation for HDU Library
 </p>
 
+<div align="center">
+
+![LICENSE](https://img.shields.io/badge/license-Apache2.0-green)
+![Author](https://img.shields.io/badge/Author-Albresky-blue.svg)
+
+</div>
+
 **English** | [中文](https://github.com/Albresky/HDU-Library-Master/blob/main/README.md)
 
 Automatic daily seats reservation via `Github Actions`
@@ -27,11 +34,16 @@ Automatic daily seats reservation via `Github Actions`
 |Required| `HLMUSERID`   | `20239999` | Student ID |
 |Required| `HLMPASSWORD` | `hDu123321` | Login password of library's system, **differ from the password of HDU-CAS** |
 |Required| `HLMPLANCODE` | `1:1000:15:8:2` | Reservation task code, separated by English commas. For example, `code1,code2,code3, ...`  See `Data Field` for details |
-|Optional| `HLMMAXTRIALS`| `10` | The maximum number of trials, default value is `10` times |
+|Optional| `HLMMAXTRIALS`| `1` | The maximum number of trials, default value is `1` times |
 |Optional| `HLMDELAY`    | `2` | Delay in each query, default value is `2` seconds |
 |Optional| `HLMLOGDETAILS` | `false` | whether to output task details in the log of workflows, default value is `false`, you can set it to `true` to display task details |
 |Optional| `HLMEXECUTETIME` | `19:20:20` | The time to start executing task, default value is `20:00:00` |
 |Optional| `HLMPREEXETIME` | `00:00:00` | The advanced time to execute task, default value is `00:00:00` |
+
+
+> [!WARNING]\
+> `HLMMAXTRIALS` default value is `1`, ≥ `3` times may cause account banning.
+
 
 ### [Note] When to Trigger? (**Do NOT MODIFY**)
 
@@ -86,8 +98,8 @@ Automatic daily seats reservation via `Github Actions`
    - In hours, `e.g.`:
      - `1` means `1` hour
      - `4` means `4` hours
-   - **[PS]** The duration should be less than the opening time of the library, and not exceed `14` hours
-     - e.g. If that room opens at `8:00` and closes at `22:00`, then the duration should be less than `14` hours (`22 - 8 = 14`), and if your reservation starts at `20:00`, then the duration should be less than `2` hours (`22 - 20 = 2`)
+   - **[PS]** The duration should be no greater than the opening time of the library, and not exceed `14` hours
+     - e.g. If A room opens at `8:00` and closes at `22:00`, then the duration should be no greater than `14` hours (`22 - 8 = 14`), and if your reservation begins at `20:00`, then the duration should be no greater than `2` hours (`22 - 20 = 2`)
 
 
 ## Example
@@ -101,7 +113,7 @@ Automatic daily seats reservation via `Github Actions`
       - `1:1000:15:8:2,1:1524:34:14:5,3:1412:22:18:2`
 
 
- - The example given above is going to reserve seats like this :
+ - The example given above is likely to reserve seats like this :
 
 |No.|Place|Location|Seat|Time|Duration|
 |---|---|---|---|---|---|

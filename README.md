@@ -5,6 +5,13 @@
 杭电图书馆每日定时[订座/抢座]
 </p>
 
+<div align="center">
+
+![LICENSE](https://img.shields.io/badge/license-Apache2.0-green)
+![Author](https://img.shields.io/badge/Author-Albresky-blue.svg)
+
+</div>
+
 **中文** | [English](https://github.com/Albresky/HDU-Library-Master/blob/main/readme/README_EN.md)
 
 `Github Actions` 自动触发每日订座任务
@@ -34,11 +41,14 @@
 |必填| `HLMUSERID`   | `20239999` | 学号 |
 |必填| `HLMPASSWORD` | `hDu123321` | 图书馆系统登录密码，**非数字杭电登录密码** |
 |必填| `HLMPLANCODE` | `1:1000:15:8:2` | 订座任务代码，以英文逗号分隔。如 `code1,code2,...` |
-|可选| `HLMMAXTRIALS`| `10` | 最大尝试次数，默认为 `10` 次 |
+|可选| `HLMMAXTRIALS`| `1` | 最大尝试次数，默认为 `1` 次 |
 |可选| `HLMDELAY`    | `2` | 请求延迟时间，默认为 `2` 秒 |
 |可选| `HLMLOGDETAILS` | `false` | 是否在workflows 的日志中输出任务细节，默认为 `false` |
 |可选| `HLMEXECUTETIME` | `19:20:20` | 开始执行任务时间点，默认为 `20:00:00` |
 |可选| `HLMPREEXETIME` | `00:00:00` | 提前执行任务时间点，默认为 `00:00:00` |
+
+> [!WARNING]\
+> 环境变量`HLMMAXTRIALS` 最大尝试次数，默认为 `1` 次，大于等于 `3`` 次可能导致封号。
 
 
 ### 3、[注] 触发时间说明（**勿修改**）
