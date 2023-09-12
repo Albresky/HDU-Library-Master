@@ -26,12 +26,11 @@ session:
     Sec-Fetch-Mode: cors
     Sec-Fetch-Site: same-origin
     User-Agent: Mozilla/5.0 (Linux; Android 12; Pixel 3 Build/SP1A.210812.016.C2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.99 XWEB/4375 MMWEBSDK/20221011 Mobile Safari/537.36 MMWEBID/2340 MicroMessenger/8.0.30.2244(0x28001E44) WeChat/arm64 Weixin GPVersion/1 NetType/WIFI Language/zh_CN ABI/arm64 MiniProgramEnv/android
-    accept: application/json, text/plain, */*
-    api-token: NzZmNjkyMjUzNmZiNzc3ZDVhMjRhMTFkYTVhYmM1Yjk=
-    content-type: application/x-www-form-urlencoded;charset=UTF-8
-    sec-ch-ua: ""
-    sec-ch-ua-mobile: ?1
-    sec-ch-ua-platform: ""
+    Accept: application/json, text/plain, */*
+    Content-type: application/x-www-form-urlencoded;charset=UTF-8
+    Sec-ch-ua: ""
+    Sec-ch-ua-mobile: ?1
+    Sec-ch-ua-platform: ""
   params:
     LAB_JSON: '1'
   trust_env: false
