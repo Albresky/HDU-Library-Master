@@ -5,3 +5,5 @@ config/config.yaml
 *.pyc
 /venv/
 .idea/*
+utils/test.js
+utils/test.py

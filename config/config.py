@@ -16,14 +16,28 @@ data:
 planCode: []
 session:
   headers:
-    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101
-      Firefox/101.0
+    Accept-Encoding: gzip, deflate, br, zstd
+    Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7
+    Connection: keep-alive
+    Host: hdu.huitu.zhishulib.com
+    Origin: https://hdu.huitu.zhishulib.com
+    Referer: https://hdu.huitu.zhishulib.com/
+    Sec-Fetch-Dest: empty
+    Sec-Fetch-Mode: cors
+    Sec-Fetch-Site: same-origin
+    User-Agent: Mozilla/5.0 (Linux; Android 12; Pixel 3 Build/SP1A.210812.016.C2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.99 XWEB/4375 MMWEBSDK/20221011 Mobile Safari/537.36 MMWEBID/2340 MicroMessenger/8.0.30.2244(0x28001E44) WeChat/arm64 Weixin GPVersion/1 NetType/WIFI Language/zh_CN ABI/arm64 MiniProgramEnv/android
+    accept: application/json, text/plain, */*
+    api-token: NzZmNjkyMjUzNmZiNzc3ZDVhMjRhMTFkYTVhYmM1Yjk=
+    content-type: application/x-www-form-urlencoded;charset=UTF-8
+    sec-ch-ua: ""
+    sec-ch-ua-mobile: ?1
+    sec-ch-ua-platform: ""
   params:
     LAB_JSON: '1'
   trust_env: false
   verify: false
 urls:
-  book_seat: https://hdu.huitu.zhishulib.com/Seat/Index/bookSeats?LAB_JSON=1
+  book_seat: https://hdu.huitu.zhishulib.com/Seat/Index/bookSeats
   login: https://hdu.huitu.zhishulib.com/User/Index/login
   query_seats: https://hdu.huitu.zhishulib.com/Seat/Index/searchSeats
   query_rooms: https://hdu.huitu.zhishulib.com/Space/Category/list

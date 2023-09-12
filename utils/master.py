@@ -7,6 +7,7 @@ from time import sleep
 from math import floor as fl
 from datetime import datetime as dt
 from utils.time import getNowTime,getNowTimeWithOffset
+import hashlib,base64
 
 sys.path.append(os.getcwd())
 from config.config import ConfigParser
@@ -65,7 +66,7 @@ class Master:
             
         # default job config
         if env_max_trials is None or env_max_trials == '':
-            self.job["maxTrials"] = 10  # default max trials
+            self.job["maxTrials"] = 1  # default max trials
         else:
             self.job["maxTrials"] = int(env_max_trials)
         if env_delay is None or env_delay == '' or int(env_delay) < 2:
@@ -114,11 +115,15 @@ class Master:
     
     def login(self):
         url = self.urls["login"]
-        loginRes = self.session.post(url=url, data=self.userInfo).json()
-        if loginRes["CODE"] == "ok":
-            self.uid = loginRes["DATA"]["uid"]
-            self.name = loginRes["DATA"]["user_info"]["name"]
-        return loginRes["CODE"] == "ok"
+        loginRes = self.session.post(url=url, data=self.userInfo)
+        if loginRes.status_code != 200:
+            print(f"登录失败，错误代码{loginRes.status_code}")
+            return False
+        _json=loginRes.json()
+        if _json["CODE"] == "ok":
+            self.uid = _json["DATA"]["uid"]
+            self.name = _json["DATA"]["user_info"]["name"]
+        return _json["CODE"] == "ok"
 
     def __queryRooms(self):
         # 查询所有可用的房间类型，返回一个字典，键为房间名，值为房间对应的请求参数
@@ -198,8 +203,8 @@ class Master:
         data = {}
         data["beginTime"] = int(plan["beginTime"].timestamp())
         data["duration"] = plan["duration"]*3600
-        data["is_recommend"] = 0
-        data["api_time"]= fl(getNowTimeWithOffset(days=0, hours=0).timestamp()));
+        data["is_recommend"] = 1
+        data["api_time"]= fl(getNowTimeWithOffset(days=0, hours=0).timestamp());
         for i in range(len(plan["seatsInfo"])):
             data[f"seats[{i}]"] = plan["seatsInfo"][i]["seatId"]
             data[f"seatBookers[{i}]"] = plan["seatBookers"][i]
@@ -208,6 +213,12 @@ class Master:
     def run(self, plan):
             data = self.plan2data(plan)
             url = self.urls["book_seat"]
+            
+            _g=f"post&/Seat/Index/bookSeats?LAB_JSON=1&api_time{str(data['api_time'])}&beginTime{str(data['beginTime'])}&duration{str(data['duration'])}&is_recommend{str(data['is_recommend'])}&seatBookers[0]{str(data['seatBookers[0]'])}&seats[0]{str(data['seats[0]'])}"
+            md5=hashlib.md5(_g.encode('utf-8')).hexdigest()
+            str_g=base64.b64encode(md5.encode('utf-8')).decode('utf-8')
+            self.session.headers["Api-Token"]=str_g
+
             res = self.session.post(url=url, data=data).json()
             return res
 
