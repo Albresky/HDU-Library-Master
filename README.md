@@ -27,6 +27,12 @@
 :x: 私有服务器
 
 
+### 免责声明
+
+> [!WARNING]\
+> 介于HDU图书馆预约系统更新（2023.09.11），本仓库所实现的抢座功能有封号的可能，使用本仓库则代表你自愿承担封号后果。
+
+
 ## 一、使用方法
 
 ### 1、`Fork` 本仓库
@@ -35,6 +41,10 @@
 
  - 在你 Fork 的仓库中，进行以下步骤的配置：
    - `Settings` - `[Security]Secrets and Variables` - `Actions` - `New repository secret`
+
+
+> [!WARNING]\
+> 环境变量 `HLMMAXTRIALS` 最大尝试次数，默认为 `1` 次，大于等于 `3` 次可能导致封号。
 
 || Name | Secrets（示例） | 描述|
 |--|--|--|--|
@@ -46,9 +56,6 @@
 |可选| `HLMLOGDETAILS` | `false` | 是否在workflows 的日志中输出任务细节，默认为 `false` |
 |可选| `HLMEXECUTETIME` | `19:20:20` | 开始执行任务时间点，默认为 `20:00:00` |
 |可选| `HLMPREEXETIME` | `00:00:00` | 提前执行任务时间点，默认为 `00:00:00` |
-
-> [!WARNING]\
-> 环境变量`HLMMAXTRIALS` 最大尝试次数，默认为 `1` 次，大于等于 `3`` 次可能导致封号。
 
 
 ### 3、[注] 触发时间说明（**勿修改**）
@@ -128,6 +135,6 @@
 | 3    | 阅览室   | 综合第一书库（十一楼）| 22     | 18:00 - 20:00 | 2小时 |
 
 
-## 四、鸣谢
+## 五、鸣谢
 
  - [LittleHeroZZZX/hdu-library-killer](https://github.com/LittleHeroZZZX/hdu-library-killer)
