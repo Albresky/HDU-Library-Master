@@ -69,7 +69,7 @@ class Master:
             self.job["maxTrials"] = 1  # default max trials
         else:
             self.job["maxTrials"] = int(env_max_trials)
-        if env_delay is None or env_delay == '' or int(env_delay) < 2:
+        if env_delay is None or env_delay == '' or int(env_delay) > 10 or int(env_delay) < 1:
             self.job["delay"] = 2   # default delay
         else:
             self.job["delay"] = int(env_delay)
