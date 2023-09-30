@@ -218,8 +218,15 @@ class Master:
             md5=hashlib.md5(_g.encode('utf-8')).hexdigest()
             str_g=base64.b64encode(md5.encode('utf-8')).decode('utf-8')
             self.session.headers["Api-Token"]=str_g
-
-            res = self.session.post(url=url, data=data).json()
+            
+            res = None
+            
+            try:
+                res = self.session.post(url=url, data=data).json()
+            except requests.exceptions.JSONDecodeError as e:
+                print(e)
+                return None
+            
             return res
 
 if __name__ == "__main__":

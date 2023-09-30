@@ -82,7 +82,9 @@ def run():
                 if api.master.job["logDetails"]:
                     getInfo(tryTimes + 1, plan, res)
                 try:
-                    if res["DATA"]["result"] != "fail":
+                    if res is None:
+                        isSuccess = False
+                    elif res["DATA"]["result"] != "fail":
                         isSuccess = True
                     elif str(res["MESSAGE"]).startswith(MSG_TIME_OUT_OF_RANGE):
                         sleep(delay)
