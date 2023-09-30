@@ -86,6 +86,9 @@ def run():
                         isSuccess = False
                     elif res["DATA"]["result"] != "fail":
                         isSuccess = True
+                    elif str(res["MESSAGE"]).startswith(MSG_INVALID_REQUEST):
+                        print(f"[{getNowTime()}]plan[{planIndex}]={_planCode}] {res['MESSAGE']}，请更新你的仓库或提交issue！")
+                        break
                     elif str(res["MESSAGE"]).startswith(MSG_TIME_OUT_OF_RANGE):
                         sleep(delay)
                     elif str(res["MESSAGE"]).startswith(MSG_DUPLICATE):
