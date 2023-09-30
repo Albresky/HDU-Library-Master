@@ -30,9 +30,13 @@ def run():
             delay = master.job["delay"]
 
             nowTime = getNowTime(precision="second")
-            preExeTime_details = getNowTime().strptime(
-                master.job["preExeTime"], "%H:%M:%S"
-            )
+            try:
+                preExeTime_details = getNowTime().strptime(
+                    master.job["preExeTime"], "%H:%M:%S"
+                )
+            except TypeError as e:
+                print(f"[{getNowTime()}]请检查配置文件中的preExeTime是否正确！\n当前preExeTime={master.job['preExeTime']}")
+                return
             preExeTime =getNowTimeWithOffset(days=1).replace(
                 hour=preExeTime_details.hour,
                 minute=preExeTime_details.minute,
