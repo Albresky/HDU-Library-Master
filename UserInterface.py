@@ -90,7 +90,7 @@ class UserInterface:
                 roomName = self.master.getRoomNameByIndex(roomName)
                 room = self.master.rooms[roomName]
                 
-                retries = self.master.job["maxTrials"] + 1
+                retries = self.master.job["maxTrials"] + 5
                 delay = self.master.job['delay']
                 floor = None
                 floorName = None
