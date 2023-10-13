@@ -30,7 +30,8 @@ class UserInterface:
     
     def login(self):
         flag = False
-        while not flag:
+        trials = 1
+        while not flag and trials >= 0:
             if self.master.userInfo["login_name"]  and self.master.userInfo["password"] :
                 if self.master.login():
                     print("登录成功")
@@ -39,7 +40,11 @@ class UserInterface:
                     self.th.start()
                     flag = True
                 else:
-                    print("环境变量中账号密码错误")
+                    print("登录失败")
+                    if trials > 0:
+                        trials -= 1
+                        print("尝试重新登录...")
+                        continue
                     self.master.delConfigFile()
                     self.exit()
             else:

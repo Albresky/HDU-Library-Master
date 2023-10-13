@@ -24,6 +24,7 @@ class Master:
             '4':'讨论室'
         }
         self.rooms = None
+        self.seats_query_flag = False
     
     def init(self, configFile):
         self.loadConfig(configFile)
@@ -113,9 +114,19 @@ class Master:
         self.session.verify = self.sessionCfg['verify']
         self.session.params = self.sessionCfg['params']
     
+    def do_post(self, url, data):
+        try:
+            res = self.session.post(url=url, data=data)
+            return res
+        except Exception as e:
+            print(f"请求失败，错误信息{e}")
+            return None
+    
     def login(self):
         url = self.urls["login"]
-        loginRes = self.session.post(url=url, data=self.userInfo)
+        loginRes = self.do_post(url=url, data=self.userInfo)
+        if loginRes is None:
+            return False
         if loginRes.status_code != 200:
             print(f"登录失败，错误代码{loginRes.status_code}")
             return False
@@ -151,11 +162,19 @@ class Master:
                 "space_category[category_id]": self.rooms[room]["space_category"]["category_id"],
                 "space_category[content_id]": self.rooms[room]["space_category"]["content_id"],
             }
-            resp = self.session.post(url=self.urls["query_seats"], data=data).json()
+            resp = self.do_post(url=self.urls["query_seats"], data=data)
+            if resp is not None:
+                resp = resp.json()
+            else:
+                self.__queryRooms()
+            if self.seats_query_flag:
+                return
             self.rooms[room]["floors"] = {x["roomName"]:x for x in resp["allContent"]["children"][2]["children"]["children"]}
             for floor in self.rooms[room]["floors"].keys():
                 self.rooms[room]["floors"][floor]["seats"] = self.rooms[room]["floors"][floor]["seatMap"]["POIs"]
+            self.seats_query_flag = True
             sleep(self.job["delay"])
+            
     def updateRooms(self):
         self.rooms = self.__queryRooms()
         self.__querySeats()
@@ -219,14 +238,9 @@ class Master:
             str_g=base64.b64encode(md5.encode('utf-8')).decode('utf-8')
             self.session.headers["Api-Token"]=str_g
             
-            res = None
-            
-            try:
-                res = self.session.post(url=url, data=data).json()
-            except requests.exceptions.JSONDecodeError as e:
-                print(e)
-                return None
-            
+            res = self.do_post(url=url, data=data)
+            if res is not None:
+                res = res.json()
             return res
 
 if __name__ == "__main__":
