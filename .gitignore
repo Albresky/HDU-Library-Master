@@ -7,3 +7,4 @@ config/config.yaml
 .idea/*
 utils/test.js
 utils/test.py
+test.py
