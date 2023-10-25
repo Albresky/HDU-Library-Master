@@ -108,7 +108,7 @@ def run():
             if isSuccess:
                 print(f"[{getNowTime()}][plan[{planIndex}]={_planCode}] 预约成功")
             else:
-                print(f"[{getNowTime()}]plan[{planIndex}]={_planCode}] 预约失败")
+                print(f"[{getNowTime()}]plan[{planIndex}]={_planCode}] 预约失败：{res['MESSAGE']}")
             planIndex += 1
         
 
