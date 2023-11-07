@@ -80,15 +80,17 @@ def run():
             )
             isSuccess = False
             tryTimes = 0
-            
+            _msg = MSG_NO_RESPONSE
             while tryTimes < maxTrials and not isSuccess:
                 res = master.run(plan)
-                if api.master.job["logDetails"]:
+                if res is None:
+                    isSuccess = False
+                    tryTimes += 1
+                    continue
+                elif api.master.job["logDetails"]:
                     getInfo(tryTimes + 1, plan, res)
                 try:
-                    if res is None:
-                        isSuccess = False
-                    elif res["DATA"]["result"] != "fail":
+                    if res["DATA"]["result"] != "fail":
                         isSuccess = True
                     elif str(res["MESSAGE"]).startswith(MSG_INVALID_REQUEST):
                         print(f"[{getNowTime()}]plan[{planIndex}]={_planCode}] {res['MESSAGE']}，请更新你的仓库或提交issue！")
@@ -105,13 +107,10 @@ def run():
                     print(f"[{getNowTime()}]plan[{planIndex}]={_planCode}] 预约失败，原因：{e}")
                 finally:
                     tryTimes += 1
-            if isSuccess:
-                print(f"[{getNowTime()}][plan[{planIndex}]={_planCode}] 预约成功")
-            else:
-                print(f"[{getNowTime()}]plan[{planIndex}]={_planCode}] 预约失败：{res['MESSAGE']}")
+                    _msg = res["MESSAGE"]
+            print(f"[{getNowTime()}]plan[{planIndex}]={_planCode}] 预约结果：{_msg}")
             planIndex += 1
         
-
 
 if __name__ == "__main__":
     run()

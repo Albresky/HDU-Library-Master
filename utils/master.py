@@ -256,10 +256,10 @@ class Master:
             data = self.plan2data(plan)
             url = self.urls["book_seat"]
             
-            _g=f"post&/Seat/Index/bookSeats?LAB_JSON=1&api_time{str(data['api_time'])}&beginTime{str(data['beginTime'])}&duration{str(data['duration'])}&is_recommend{str(data['is_recommend'])}&seatBookers[0]{str(data['seatBookers[0]'])}&seats[0]{str(data['seats[0]'])}"
-            md5=hashlib.md5(_g.encode('utf-8')).hexdigest()
-            str_g=base64.b64encode(md5.encode('utf-8')).decode('utf-8')
-            self.session.headers["Api-Token"]=str_g
+            _g = f"post&/Seat/Index/bookSeats?LAB_JSON=1&api_time{str(data['api_time'])}&beginTime{str(data['beginTime'])}&duration{str(data['duration'])}&is_recommend{str(data['is_recommend'])}&seatBookers[0]{str(data['seatBookers[0]'])}&seats[0]{str(data['seats[0]'])}"
+            md5 = hashlib.md5(_g.encode('utf-8')).hexdigest()
+            str_g = base64.b64encode(md5.encode('utf-8')).decode('utf-8')
+            self.session.headers["Api-Token"] = str_g
             res = self.do_query(method='POST',url=url,data=data,toJson=True)
             return res
 
